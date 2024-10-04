@@ -1,3 +1,4 @@
+from dna_rna_tools import GC_status
 def mean(array: list[int|float]) -> float:
     return sum(array)/len(array)
 
@@ -19,12 +20,13 @@ def check_limits(gc_bounds: tuple|int, length_bounds: tuple|int) -> tuple:
 
 def filter_fastq(seqs, gc_bounds=(0, 100), length_bounds=(0, 2**32), quality_threshold=0):
     filtered_seqs = {}
-    for name, (seq, field_4) in seqs:
-        length, quality, gc = len(seq), phread_score(quality), GC_status(seq)
+    for name, (seq, field_4) in seqs.items():
+        length, quality, gc = len(seq), phread_score(field_4), GC_status(seq)
         gc_bounds, length_bounds = check_limits(gc_bounds, length_bounds)
-        filtration =  (gc in range(gc_bounds[0], gc_bounds[1] + 1),
+        filtration =  (gc_bounds[0]<= gc <= gc_bounds[1],
                           length in range(length_bounds[0], length_bounds[1] + 1),
                           quality_threshold < quality)
         if filtration == (True, True, True):
             filtered_seqs[name] = (seq, field_4)
         continue
+    return filtered_seqs
