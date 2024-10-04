@@ -17,7 +17,7 @@ def check_limits(gc_bounds: tuple|int, length_bounds: tuple|int) -> tuple:
     return gc_bounds, length_bounds
 
 
-def run_filter_fastq(seqs, gc_bounds=(0, 100), length_bounds=(0, 2**32), quality_threshold=0):
+def filter_fastq(seqs, gc_bounds=(0, 100), length_bounds=(0, 2**32), quality_threshold=0):
     filtered_seqs = {}
     for name, (seq, field_4) in seqs:
         length, quality, gc = len(seq), phread_score(quality), GC_status(seq)
