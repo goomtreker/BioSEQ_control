@@ -1,8 +1,8 @@
 # BioSeq_control
 
 ## О BioSeq_control
-***Bioseq_control*** is small python program designed for parsing and processing sequences. The software consists of two modules and a primary script.
-The programm has two python modules and main script.
+***Bioseq_control*** is small python program designed for parsing and processing sequences.
+The softwere has two python modules and main script.
 
 
 #### Structures of files:
