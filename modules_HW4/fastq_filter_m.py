@@ -2,7 +2,7 @@ def mean(array: list[int | float]) -> float:
     return sum(array)/len(array)
 
 
-def phread_score(field_4: str) -> float:  # Функция для расчета
+def phread_score(field_4: str) -> float:  # Функция для расчета phread score
     symbol_collector = []
     for symbol in field_4:
         symbol_collector.append(ord(symbol) - 33)
