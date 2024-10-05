@@ -5,7 +5,7 @@
 The softwere has two python modules and main script.
 
 
-#### Structures of files:
+#### Structure of files:
 
 
 - **main_script.py**
