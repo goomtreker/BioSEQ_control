@@ -24,7 +24,7 @@ Run python interpretator that you prefer
 import sys
 sys.path.append("path/to/BioSEQ_control")
 ```
-### Использование
+### Usage
 The main script ```main_script``` consists of two functions:
 -```run_dna_rna_tools```
 -```filter_fastq```
