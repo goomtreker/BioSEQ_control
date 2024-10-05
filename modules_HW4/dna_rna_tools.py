@@ -63,15 +63,3 @@ def check_acid_type(seq: str) -> str:  # Чек на валидный тип Н�
     if set(seq_up).issubset(('A', 'T', 'G', 'C')):
         return "DNA"
     raise ValueError("Incorrect sequence")
-
-
-def run_dna_rna_tools(*args: [str]) -> [list|str]:  # main function
-    *seqs, action = args
-    action = eval(action)
-    collector = []
-    for seq in seqs:
-        check_acid_type(seq)
-        collector.append(action(seq))
-    if len(collector) == 1:
-        return collector[0]
-    return collector
