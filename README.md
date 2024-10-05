@@ -1,11 +1,11 @@
 # BioSeq_control
 
 ## О BioSeq_control
-***Bioseq_control*** пресдтавляет для небольшую программу для парсинга и манипуляции сиквенсов.
-В программу входят два модуля и главный скрипт.
+***Bioseq_control*** is small python program designed for parsing and processing sequences. The software consists of two modules and a primary script.
+The programm has two python modules and main script.
 
 
-#### Структура файлов:
+#### Structures of files:
 
 
 - **main_script.py**
@@ -13,26 +13,23 @@
     - **dna_rna_tools**
     - **fastq_filter_m**
 
-### Установка
+### Installing
 
 ```bash
 git clone git@github.com:goomtreker/BioSEQ_control.git
 ```
-Подключение модуля:
-Запустите любой интерпритатор pyton
-```pyton
+Adding modules:
+Run python interpretator that you prefer
+```python
 import sys
 sys.path.append("path/to/BioSEQ_control")
 ```
 ### Использование
-В главном скрипте ```main_script``` лежит две функции:
+The main script ```main_script``` consists of two functions:
 -```run_dna_rna_tools```
 -```filter_fastq```
 
-```run_dna_rna_tool``` принимает одну или несколько сиквенсов (РНК или ДНК)
- и последним примнимается агрумент, который будет идентичным названию
- функции.
-возможные функции:
+```run_dna_rna_tool``` It accepts one or more sequences (RNA or DNA) and the last argument is taken by an agent that will be identical to the name of the function.possible functions:
 - ```reverse```
 - ```reverse_complement```
 - ```transcribe```
@@ -40,12 +37,12 @@ sys.path.append("path/to/BioSEQ_control")
 - ```find_possible_ORF```
 - ```GC_status```
 - ```check_acid_type```
-Пример использования:
+Example of using:
 ```python
 run_dna_rna_tools('GGCccttggATC', 'gcccggttt', 'reverse_complement')
 ```
 
-```filter_fastq``` на вход принимает словарь вида: {Имя сиквенса: (сиквенс, символы качества рида)}. Пример:
+```filter_fastq``` input accept a dictionary {Sequence name: (read, read quality symbols)}. Example:
 ```
 EXAMPLE_FASTQ = {
     '@SRX079801': ('ACAGCAACATAAACATGA....AA', 'FGGGFGGGFGGGFG...GGD'),
@@ -54,18 +51,18 @@ EXAMPLE_FASTQ = {
     '@SRX079812': ('AGT...AATGACCCG', '<98;...BBC')
     }      
 ```
-А также пороги по длине, гц составу, и контролю качетва рида.
-На выходе будут сиквенсы, которые прошли все пороги.
-Пример использования:
+As well as thresholds in length, gc composition, and read phread quality control.
+example:
 ```python
 filter_fastq(
         seqs: EXAMPLE_FASTQ,
         gc_bounds=44,
         length_bounds=(10000, 100000), quality_threshold=34):
 ```
-
-Примечание:
-Вопросы замечания и предложения можно задать/предложить во вкладке issues.
-P.S Нас часто спрашивают знаем ли мы что-нибудь о пакете Bio.SeqIO?
-Наш ответ:
-Мы никогда о нем не слышали.:)
+Output will be the dict with same structure, but contains only sequences which pass the threshold
+Note:
+Questions, comments and suggestions can be asked/suggested in the issues tab.P.S. 
+We often receive question:
+ Do we know anything about the Bio.SeqIO package?
+ Our response:
+ We've never heard of it. :)
