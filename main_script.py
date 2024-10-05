@@ -1,6 +1,6 @@
 # Импорт модулей
-import dna_rna_tools as drt
-import fastq_filter_m as fq
+from modules_HW4 import dna_rna_tools as drt
+from modules_HW4 import fastq_filter_m as fq
 
 
 # Главная функция для модуля fastq_filter_m
@@ -29,12 +29,12 @@ def filter_fastq(
 
 
 # Главная функция для модуля dna_rna_tools,
-def run_dna_rna_tools(*args: list[str]) -> list|str:
+def run_dna_rna_tools(*args: list[str]) -> list | str:
     """
     На вход получает агрументы листом, вначале должны быть
     сиквенсы, последней командой
     прописывается манипуляция с сиквенсами
-    """ 
+    """
     *seqs, action = args
     action = eval("drt." + action)
     collector = []
