@@ -1,26 +1,26 @@
-# Импорт модулей
+# import modules
 from os import mkdir
 from os.path import isdir
 from os.path import join as path_join
 from BioSEQ import filter_fastq
 
 
-def phread_score(qual: str) -> float:  # Функция для расчета phread score
+def phread_score(qual: str) -> float:  # estimate the read quality
     return sum(ord(q) - 33 for q in qual) / len(qual)
 
 
-def make_bounds(limit):
-    """Определение лимитов,
-    в том случае если подали
-    одним числом"""
+def make_bounds(limit: float|int|tuple) -> float:
+    """Define limits, if it 
+    specified with one case"""
     if isinstance(limit, (int, float)):
         return (0, limit)
     return limit
 
 
-def transform_to_dict(fastq_file):
+def transform_to_dict(fastq_file: __file__) -> dict:
         """
-        Функци для превразщения 4 строк к словорю
+        Transform 4 readline to dict
+        for filter_fastq
         """
         seq_read = fastq_file.readline
         seq_dict = {
@@ -32,13 +32,17 @@ def transform_to_dict(fastq_file):
         return seq_dict
 
 
-# Функция для фильтрации fastq файла
+# Function for filter fastq file format
 def Record_filt_fastq(
         fastq_input,
         fastq_ouput,
         gc_bounds=(0, 100),
         len_bounds=(0, 2**32),
-        quality_threshold=0):
+        quality_threshold=0) -> __file__:
+    """
+    Function for record filt fastq_file, for input takes file fastq format
+    for output return file with same format, with filtered seqs
+    """
     if isdir('filtered'):
         with open(fastq_input, 'r') as input, open(path_join('filtered', fastq_ouput), 'w') as output:
                 while True:

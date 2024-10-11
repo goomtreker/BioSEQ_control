@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Словарь для комплементарности
+# Complement_dictionary
 COMPL_DNA = {
     "A": "T", "G": "C", "C": "G", "T": "A",
     "a": "t", "g": "c", "c": "g", "t": "a"
@@ -12,7 +12,7 @@ stop_codons = ["UAA", "UAG", "UGA"]
 start_codon = 'AUG'
 
 
-def complement(seq: str) -> str:  # Возвращает комплементаруню цепь
+def complement(seq: str) -> str:  # return complement nucl.acid
     seq_result = ''
     compl_rule = COMPL_RNA if check_acid_type(seq) == "RNA" else COMPL_DNA
     for nucl in seq:
@@ -20,22 +20,22 @@ def complement(seq: str) -> str:  # Возвращает комплемента�
     return seq_result
 
 
-def transcribe(seq: str) -> str:  # Транскрипция ДНК, возрващает РНК
+def transcribe(seq: str) -> str:  # DNA transcription, return RNA
     if check_acid_type(seq) == 'DNA':
         return seq.replace('T', "U").replace('t', 'u')
     raise ValueError("cant transcribe 'U'racil")
 
 
-def reverse(seq: str):  # Разворачивает нуклеотидную цепь
+def reverse(seq: str):  # reverse nucl. acid
     return seq[::-1]
 
 
-def reverse_complement(seq: str):  # Разворачивает коплементарную нуклеотидную цепль
+def reverse_complement(seq: str):  # reverse 
     return reverse(complement(seq))
 
 
-# Поиск возможной РС, если РС есть возвращает координаты,
-# если нет возвращает ноль
+# Find possible ORF, if it exists return coordinates
+# on the other hand returns 0
 def find_possible_ORF(seq: str, start=start_codon, stop=stop_codons) -> list | int:
     if check_acid_type(seq) == 'RNA':
         seq = seq.upper()
@@ -49,19 +49,19 @@ def find_possible_ORF(seq: str, start=start_codon, stop=stop_codons) -> list | i
         stop = min(stop_list)
         if (start != -1 and stop != -1):
             if abs(stop - start) % 3 == 0:
-                return start, stop   # Начало, Конец РС
+                return start, stop   #  start,stop
             return 0
         return 0
     return find_possible_ORF(transcribe(seq))
 
 
-def GC_status(seq: str) -> float:  # ГЦ состав
+def GC_status(seq: str) -> float:  # GC content in percent
     seq = seq.upper()  # type: ignore
     result = (seq.count('G') + seq.count('C'))/len(seq)
     return result*100
 
 
-def check_acid_type(seq: str) -> str:  # Чек на валидный тип НК
+def check_acid_type(seq: str) -> str:  # validate the nucl.acid
     seq_up = seq.upper()
     if set(seq_up).issubset(('A', 'U', 'G', 'C')):
         return "RNA"

@@ -9,10 +9,11 @@ def filter_fastq(
         gc_bounds=(0, 100),
         length_bounds=(0, 2**32), quality_threshold=0):
     '''
-    Главная функция для модуля fastq_filter,
-    Фильтрует словарь из {Имя сиквенса:(сиквенс;строка с символами phread)}
-    На вход получает словарь и пороги для фильтрации
-    выходе получает словарь,
+    The main function of fastq_filter_m, filter the sequecnes,
+    according to specified parameters: 
+    gc_bounds, length_bounds, quality threshold.
+    For input it takes dictionary : {sequence name: (sequence, quality)}
+    return same dictionary after filtration
     '''
     filtered_seqs = {}
     for name, (seq, qual_str) in seqs.items():
@@ -32,9 +33,8 @@ def filter_fastq(
 # Главная функция для модуля dna_rna_tools,
 def run_dna_rna_tools(*args: list[str]) -> list | str:
     """
-    На вход получает агрументы листом, вначале должны быть
-    сиквенсы, последней командой
-    прописывается манипуляция с сиквенсами
+    For inputs take list of sequences, last argument must be
+    one of the dna_rna_tools_function
     """
     *seqs, action = args
     action = eval("drt." + action)
