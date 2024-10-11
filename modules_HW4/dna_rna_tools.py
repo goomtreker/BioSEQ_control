@@ -30,7 +30,7 @@ def reverse(seq: str):  # reverse nucl. acid
     return seq[::-1]
 
 
-def reverse_complement(seq: str):  # reverse 
+def reverse_complement(seq: str):  # reverse
     return reverse(complement(seq))
 
 
@@ -49,7 +49,7 @@ def find_possible_ORF(seq: str, start=start_codon, stop=stop_codons) -> list | i
         stop = min(stop_list)
         if (start != -1 and stop != -1):
             if abs(stop - start) % 3 == 0:
-                return start, stop   #  start,stop
+                return start, stop   # start,stop
             return 0
         return 0
     return find_possible_ORF(transcribe(seq))
