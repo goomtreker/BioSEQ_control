@@ -8,7 +8,7 @@ The softwere has two python modules and main script.
 #### Structure of files:
 
 
-- **main_script.py**
+- **BioSEQ.py**
 - **modules_HW4**
     - **dna_rna_tools**
     - **fastq_filter_m**
@@ -25,7 +25,7 @@ import sys
 sys.path.append("path/to/BioSEQ_control")
 ```
 ### Usage
-The main script ```main_script``` consists of two functions:
+The main script ```BioSEQ.py``` consists of two functions:
 -```run_dna_rna_tools```
 -```filter_fastq```
 
@@ -60,7 +60,12 @@ filter_fastq(
         length_bounds=(10000, 100000), quality_threshold=34):
 ```
 Output will be the dict with same structure, but contains only sequences which pass the threshold
-Note:
+
+You can also filter your fastq file with function Record_filt_fasta, it works as same as filter_fastq.
+
+
+
+**Note**:
 Questions, comments and suggestions can be asked/suggested in the issues tab.P.S. 
 We often receive question:
  Do we know anything about the Bio.SeqIO package?
