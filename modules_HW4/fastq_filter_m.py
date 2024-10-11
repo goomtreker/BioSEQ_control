@@ -17,7 +17,7 @@ def make_bounds(limit: float | int | tuple) -> tuple:
     return limit
 
 
-def transform_to_dict(fastq_file) -> dict:
+def read_to_filter_fastq(fastq_file) -> dict:
     """
     Transform 4 readline to dict
     for filter_fastq
@@ -44,7 +44,7 @@ def Record_filt_fastq(
     if isdir('filtered'):
         with open(fastq_input, 'r') as input, open(path_join('filtered', fastq_ouput), 'w') as output:
             while True:
-                dict = transform_to_dict(input)
+                dict = read_to_filter_fastq(input)
                 if '' not in dict.keys():
                     result_dict = filter_fastq(dict, gc_bounds, len_bounds, quality_threshold)
                     for key, values in result_dict.items():

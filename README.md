@@ -61,7 +61,7 @@ filter_fastq(
 ```
 Output will be the dict with same structure, but contains only sequences which pass the threshold
 
-You can also filter your fastq file with function Record_filt_fasta, it works as same as filter_fastq.
+You can also filter your fastq file with function Record_filt_fasta, it works as same as filter_fastq, see more in ```help(Record_filt_fasta)```.
 
 
 
