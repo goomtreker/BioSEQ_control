@@ -5,7 +5,7 @@ from modules_HW4 import fastq_filter_m as fq
 
 # Главная функция для модуля fastq_filter_m
 def filter_fastq(
-        seqs: dict[str | tuple[str | str]],
+        seqs: dict[str: tuple[str, str]],
         gc_bounds=(0, 100),
         length_bounds=(0, 2**32), quality_threshold=0):
     '''
@@ -15,17 +15,18 @@ def filter_fastq(
     выходе получает словарь,
     '''
     filtered_seqs = {}
-    for name, (seq, field_4) in seqs.items():
-        length, quality, gc = len(seq), fq.phread_score(field_4), drt.GC_status(seq)
-        gc_bounds, length_bounds = fq.check_limits(gc_bounds, length_bounds)
+    for name, (seq, qual_str) in seqs.items():
+        length, quality, gc = len(seq), fq.phread_score(qual_str), drt.GC_status(seq)
+        gc_bounds, length_bounds = fq.make_bounds(gc_bounds), fq.make_bounds(length_bounds)
         filtration = (
             gc_bounds[0] <= gc <= gc_bounds[1],
             length in range(length_bounds[0], length_bounds[1] + 1),
             quality_threshold < quality)
-        if filtration == (True, True, True):
-            filtered_seqs[name] = (seq, field_4)
-        continue
+        if all(filtration):
+            filtered_seqs[name] = (seq, qual_str)
     return filtered_seqs
+
+
 
 
 # Главная функция для модуля dna_rna_tools,

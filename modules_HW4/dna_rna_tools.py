@@ -48,7 +48,7 @@ def find_possible_ORF(seq: str, start=start_codon, stop=stop_codons) -> list | i
         start = seq.find(start_codon)
         stop = min(stop_list)
         if (start != -1 and stop != -1):
-            if ((stop - start)**2)**0.5 % 3 == 0:
+            if abs(stop - start) % 3 == 0:
                 return start, stop   # Начало, Конец РС
             return 0
         return 0
