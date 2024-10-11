@@ -9,6 +9,7 @@ The softwere has two python modules and main script.
 
 
 - **BioSEQ.py**
+- **bio_files_proccessor.py**
 - **modules_HW4**
     - **dna_rna_tools**
     - **fastq_filter_m**
@@ -63,6 +64,7 @@ Output will be the dict with same structure, but contains only sequences which p
 
 You can also filter your fastq file with function Record_filt_fasta, it works as same as filter_fastq, see more in ```help(Record_filt_fasta)```.
 
+We also add **bio_files_proccessor.py** script, which may help you to work with fasta format files and blast ouputs. 
 
 
 **Note**:
