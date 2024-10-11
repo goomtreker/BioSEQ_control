@@ -22,5 +22,3 @@ def parse_blast_output(input_fasta: str, output_fasta: str) -> None:
                 list_of_description.append(target_line.split('[')[0])
         for descr in sorted(list_of_description):
             output.write(descr + '\n')
-
-convert_multiline_fasta_to_oneline('example_HW5/example_multiline_fasta.fasta')
