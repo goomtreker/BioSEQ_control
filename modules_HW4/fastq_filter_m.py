@@ -1,20 +1,56 @@
-def mean(array: list[int | float]) -> float:
-    return sum(array)/len(array)
+# import modules
+from os import mkdir
+from os.path import isdir
+from os.path import join as path_join
+from BioSEQ import filter_fastq
 
 
-def phread_score(field_4: str) -> float:  # Функция для расчета phread score
-    symbol_collector = []
-    for symbol in field_4:
-        symbol_collector.append(ord(symbol) - 33)
-    return mean(symbol_collector)
+def phread_score(qual: str) -> float:  # estimate the read quality
+    return sum(ord(q) - 33 for q in qual) / len(qual)
 
 
-def check_limits(gc_bounds: tuple | int, length_bounds: tuple | int) -> tuple:
-    """Определение лимитов,
-    в том случае если подали
-    одним числом"""
-    if type(gc_bounds) is int:
-        gc_bounds = (0, gc_bounds)
-    elif type(length_bounds) is int:
-        length_bounds = (0, length_bounds)
-    return gc_bounds, length_bounds
+def make_bounds(limit: float | int | tuple) -> tuple:
+    """Define limits, if it
+    specified with one case"""
+    if isinstance(limit, (int, float)):
+        return (0, limit)
+    return limit
+
+
+def read_to_filter_fastq(fastq_file) -> dict:
+    """
+    Transform 4 readline to dict
+    for filter_fastq
+    """
+    seq_read = fastq_file.readline
+    seq_dict = {
+            seq_read().strip(): (seq_read().strip(), seq_read().strip(),
+                                 seq_read().strip())[::2]
+                }
+    return seq_dict
+
+
+# Function for filter fastq file format
+def Record_filt_fastq(
+        fastq_input: str,
+        fastq_ouput: str,
+        gc_bounds=(0, 100),
+        len_bounds=(0, 2**32),
+        quality_threshold=0) -> None:
+    """
+    Function for record filt fastq_file, for input takes file fastq format
+    for output return file with same format, with filtered seqs
+    """
+    if isdir('filtered'):
+        with open(fastq_input, 'r') as input, open(path_join('filtered', fastq_ouput), 'w') as output:
+            while True:
+                dict = read_to_filter_fastq(input)
+                if '' not in dict.keys():
+                    result_dict = filter_fastq(dict, gc_bounds, len_bounds, quality_threshold)
+                    for key, values in result_dict.items():
+                        output.write(key + '\n' + values[0] + '\n')
+                        output.write(key.replace('@', '+') + '\n' + values[1] + '\n')
+                else:
+                    return
+    mkdir('filtered')
+    return Record_filt_fastq(fastq_input, fastq_ouput, gc_bounds, len_bounds, quality_threshold)
