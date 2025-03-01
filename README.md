@@ -5,14 +5,8 @@
 The softwere has two python modules and main script.
 
 
-#### Structure of files:
-
-
 - **BioSEQ.py**
-- **bio_files_proccessor.py**
-- **modules_HW4**
-    - **dna_rna_tools**
-    - **fastq_filter_m**
+
 
 ### Installing
 
@@ -25,12 +19,32 @@ Run python interpretator that you prefer
 import sys
 sys.path.append("path/to/BioSEQ_control")
 ```
-### Usage
-The main script ```BioSEQ.py``` had several options to work with biological DATA:
-We have threeS usefull classes
-DNASequence
-RNASequence
-AminoAcidSequence
+### Description
+Features \
+
+Classes for handling biological sequences: 
+
+    BiologicalSequence — Base abstract class.
+
+    NucleicAcidSequence — Class for working with nucleic acids (DNA/RNA).
+
+    DNASequence — Class for DNA sequences, supports transcription to RNA.
+
+    RNASequence — Class for RNA sequences.
+
+    AminoAcidSequence — Class for amino acid sequences, supports charge calculation.
+
+FASTQ file filtering:
+
+The FilterFastQC function allows filtering records in a FASTQ file based on:
+
+    Sequence length
+
+    GC content
+
+    Average Phred quality score
+
+
 
 ```
 
