@@ -26,21 +26,12 @@ import sys
 sys.path.append("path/to/BioSEQ_control")
 ```
 ### Usage
-The main script ```BioSEQ.py``` consists of two functions:
--```run_dna_rna_tools```
--```filter_fastq```
+The main script ```BioSEQ.py``` had several options to work with biological DATA:
+We have threeS usefull classes
+DNASequence
+RNASequence
+AminoAcidSequence
 
-```run_dna_rna_tool``` It accepts one or more sequences (RNA or DNA) and the last argument is taken by an agent that will be identical to the name of the function.possible functions:
-- ```reverse```
-- ```reverse_complement```
-- ```transcribe```
-- ```complement```
-- ```find_possible_ORF```
-- ```GC_status```
-- ```check_acid_type```
-Example of using:
-```python
-run_dna_rna_tools('GGCccttggATC', 'gcccggttt', 'reverse_complement')
 ```
 
 ```filter_fastq``` input accept a dictionary {Sequence name: (read, read quality symbols)}. Example:
@@ -60,12 +51,7 @@ filter_fastq(
         gc_bounds=44,
         length_bounds=(10000, 100000), quality_threshold=34):
 ```
-Output will be the dict with same structure, but contains only sequences which pass the threshold
-
-You can also filter your fastq file with function Record_filt_fasta, it works as same as filter_fastq, see more in ```help(Record_filt_fasta)```.
-
-We also add **bio_files_proccessor.py** script, which may help you to work with fasta format files and blast ouputs. 
-
+The module now contains only one scipt
 
 **Note**:
 Questions, comments and suggestions can be asked/suggested in the issues tab.P.S. 

@@ -30,30 +30,34 @@ class NucleicAcidSequence(BiologicalSequence):
     def __init__(self, sequence):
         super().check_sequence
         super().__init__(sequence)
+        if not super().check_sequence():
+            raise ValueError(f"Invalid sequence: {sequence}")
 
-    _complement_rule = {"A": "T", "G": "C",
-                        "C": "G", "T": "A"}
+    _complement_rule = {}
 
-    _alphabet = _complement_rule.keys()
+    _alphabet = set("ACGTU")
 
     def complement(self):
-        return DNASequence("".join(self._complement_rule[nucl] for nucl in self.seq))
+        return self.__class__("".join(self._complement_rule[nucl] for nucl in self.seq))
 
     def reverse(self):
         return self.seq[::-1]
 
     def reverse_complement(self):
-        return DNASequence(self.complement()[::-1])
+        return self.__class__(self.complement().seq[::-1])
 
 
 class DNASequence(NucleicAcidSequence):
     def transcribe(self):
         return RNASequence(self.seq.replace("T", "U").replace("t", "u"))
+    _complement_rule = {"A": "T", "G": "C", "C": "G", "T": "A"}
+    _alphabet = set(_complement_rule.keys())
 
 
 class RNASequence(NucleicAcidSequence):
+    _complement_rule = {"A": "U", "G": "C",
+                        "C": "G", "U": "A"}
     _alphabet = {"A", "U", "G", "C"}
-
 
 class AminoAcidSequence(BiologicalSequence):
     _alphabet = set(list("ARNDCEQGHILKMFPSTWYV"))
