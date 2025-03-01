@@ -1,4 +1,7 @@
 from abc import ABC
+from Bio import SeqIO
+from Bio.SeqUtils import gc_fraction
+import numpy as np
 
 
 class BiologicalSequence(ABC):
@@ -62,3 +65,31 @@ class AminoAcidSequence(BiologicalSequence):
 
     def charge(self):
         return sum(self._charges.get(aa, 0) for aa in self.seq)
+
+
+# fastq filrator
+def make_bounds(limit: float | int | tuple) -> tuple:
+    """Define limits, if it
+    specified with one case"""
+    if isinstance(limit, (int, float)):
+        return (0, limit)
+    return limit
+
+
+# Function for filter fastq file format
+def FilterFastQC(
+        fastq_input: str,
+        fastq_ouput: str,
+        gc_bounds=(0, 100),
+        len_bounds=(0, 2**32),
+        quality_threshold=0) -> None:
+    gc_bounds, length_bounds = make_bounds(gc_bounds), make_bounds(len_bounds)
+    with open(fastq_ouput, 'w') as out_handle:
+        for record in SeqIO.parse(fastq_input, 'fastq'):
+            seq_len = len(record.seq)
+            avg_quality = np.mean(record.letter_annotations['phred_quality'])
+            gc_content = gc_fraction(record.seq)
+            if gc_bounds[0] <= gc_content*100 <= gc_bounds[1] and \
+               length_bounds[0] <= seq_len <= length_bounds[1] and \
+               avg_quality >= quality_threshold:
+                SeqIO.write(record, out_handle, 'fastq')
