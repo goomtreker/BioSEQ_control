@@ -5,14 +5,8 @@
 The softwere has two python modules and main script.
 
 
-#### Structure of files:
-
-
 - **BioSEQ.py**
-- **bio_files_proccessor.py**
-- **modules_HW4**
-    - **dna_rna_tools**
-    - **fastq_filter_m**
+
 
 ### Installing
 
@@ -25,22 +19,33 @@ Run python interpretator that you prefer
 import sys
 sys.path.append("path/to/BioSEQ_control")
 ```
-### Usage
-The main script ```BioSEQ.py``` consists of two functions:
--```run_dna_rna_tools```
--```filter_fastq```
+### Description
+Features \
 
-```run_dna_rna_tool``` It accepts one or more sequences (RNA or DNA) and the last argument is taken by an agent that will be identical to the name of the function.possible functions:
-- ```reverse```
-- ```reverse_complement```
-- ```transcribe```
-- ```complement```
-- ```find_possible_ORF```
-- ```GC_status```
-- ```check_acid_type```
-Example of using:
-```python
-run_dna_rna_tools('GGCccttggATC', 'gcccggttt', 'reverse_complement')
+Classes for handling biological sequences: 
+
+    BiologicalSequence — Base abstract class.
+
+    NucleicAcidSequence — Class for working with nucleic acids (DNA/RNA).
+
+    DNASequence — Class for DNA sequences, supports transcription to RNA.
+
+    RNASequence — Class for RNA sequences.
+
+    AminoAcidSequence — Class for amino acid sequences, supports charge calculation.
+
+FASTQ file filtering:
+
+The FilterFastQC function allows filtering records in a FASTQ file based on:
+
+    Sequence length
+
+    GC content
+
+    Average Phred quality score
+
+
+
 ```
 
 ```filter_fastq``` input accept a dictionary {Sequence name: (read, read quality symbols)}. Example:
@@ -60,12 +65,7 @@ filter_fastq(
         gc_bounds=44,
         length_bounds=(10000, 100000), quality_threshold=34):
 ```
-Output will be the dict with same structure, but contains only sequences which pass the threshold
-
-You can also filter your fastq file with function Record_filt_fasta, it works as same as filter_fastq, see more in ```help(Record_filt_fasta)```.
-
-We also add **bio_files_proccessor.py** script, which may help you to work with fasta format files and blast ouputs. 
-
+The module now contains only one scipt
 
 **Note**:
 Questions, comments and suggestions can be asked/suggested in the issues tab.P.S. 
